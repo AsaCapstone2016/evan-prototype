@@ -1,7 +1,8 @@
 var amazon = require('amazon-product-api');
 var https = require('https');
+var Q = require('q');
 
-var PAGE_TOKEN = "EAAPZBKNex1QgBAHkVScEXFwigi8bAUxVWSCT4w1IEHZC0QKZCkxs2eXSiSdFxNLtyZAlEruTMXWd52dVnOtZBORXy2FhkJHF2pNgE7nH7BrcJktgB7Jl1EWavF7eCbZCWMh1AgMbsSx1bVpnGmOISyzm2ZBlGnOHAmc4zMVyKz4TwZDZD";
+var PAGE_TOKEN = process.env.FB_PAGE_TOKEN;
 
 var path = '/v2.6/me/messages?access_token=' + PAGE_TOKEN;
 var options = {
@@ -12,8 +13,6 @@ var options = {
 };
 
 exports.handle = function (event, context, callback) {
-
-    console.log('event: ' + JSON.stringify(event));
 
     var messagingEvents = event['body-json'].entry[0].messaging;
     for (var i = 0; i < messagingEvents.length; i++) {
@@ -26,19 +25,22 @@ exports.handle = function (event, context, callback) {
             sendTypingMessage(sender);
 
             var client = amazon.createClient({
-                awsId: "AKIAI3U2MXJFJIRKWGTQ",
-                awsSecret: "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",
+                awsId: process.env.AWS_ID,
+                awsSecret: process.env.AWS_SECRET,
                 awsTag: "evanm-20"
             });
 
-            client.itemSearch({
+            return client.itemSearch({
                 searchIndex: 'All',
                 keywords: text,
                 responseGroup: 'ItemAttributes,Offers,Images'
             }).then(function (results) {
-                console.log(JSON.stringify(results));
-                sendTextMessage(sender, results);
+                sendTextMessage(sender, results).then(function () {
+                    console.log('done');
+                    callback(null, null);
+                });
             });
+
 
         }
     }
@@ -49,12 +51,12 @@ function sendTextMessage(senderFbId, resultsJson) {
 
     var elements = [];
     resultsJson.forEach(function (product) {
-        console.log(product.ItemAttributes[0].Title[0]);
         var element = {};
-        element.title = product.ItemAttributes[0].Title[0];
-        element.item_url = product.DetailPageURL[0];
-        element.image_url = product.LargeImage[0].URL[0];
-        element.subtitle = product.OfferSummary[0].LowestNewPrice[0].FormattedPrice[0];
+        element.title = product && product.ItemAttributes[0] && product.ItemAttributes[0].Title[0];
+        element.item_url = product && product.DetailPageURL[0];
+        element.image_url = product && product.LargeImage && product.LargeImage[0] &&  product.LargeImage[0].URL[0];
+        element.subtitle = product && product.OfferSummary && product.OfferSummary[0] &&
+            product.OfferSummary[0].LowestNewPrice && product.OfferSummary[0].LowestNewPrice[0].FormattedPrice[0];
         element.buttons = [
             {
                 "type": "web_url",
@@ -64,8 +66,6 @@ function sendTextMessage(senderFbId, resultsJson) {
 
         elements.push(element);
     });
-
-    console.log('Elements: ' + JSON.stringify(elements));
 
     var json = {
         recipient: {id: senderFbId},
@@ -79,24 +79,13 @@ function sendTextMessage(senderFbId, resultsJson) {
             }
         }
     };
-    var body = JSON.stringify(json);
 
-    var req = https.request(options);
 
-    req.write(body);
-    req.end();
+    return callSendAPI(json);
 }
 
 function sendTypingMessage(senderFbId) {
-    var path = '/v2.6/me/messages?access_token=' + PAGE_TOKEN;
-    var options = {
-        host: "graph.facebook.com",
-        path: path,
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'}
-    };
 
-    var typingRequest = https.request(options);
 
     var typingJson = {
         "recipient": {
@@ -105,6 +94,29 @@ function sendTypingMessage(senderFbId) {
         "sender_action": "typing_on"
     };
 
-    typingRequest.write(JSON.stringify(typingJson));
-    typingRequest.end();
+    callSendAPI(typingJson);
+}
+
+function callSendAPI(messageData) {
+
+    var deferred = Q.defer();
+
+    var callback = function (response) {
+        var str = '';
+        response.on('data', function (chunk) {
+            str += chunk;
+        });
+        response.on('end', function () {
+            deferred.resolve(true);
+        });
+    };
+    var req = https.request(options, callback);
+    req.on('error', function (e) {
+        console.log('problem with request: ' + e);
+    });
+
+    req.write(JSON.stringify(messageData));
+    req.end();
+
+    return Q.promise;
 }

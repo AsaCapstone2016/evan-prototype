@@ -2,6 +2,8 @@
   "name": "application-name",
   "version": "0.0.1",
   "dependencies": {
-    "amazon-product-api": "^0.4.1"
+    "amazon-product-api": "^0.4.1",
+    "q": "^1.4.1",
+    "request": "^2.74.0"
   }
 }
