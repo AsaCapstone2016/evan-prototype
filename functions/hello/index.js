@@ -27,7 +27,7 @@ exports.handle = function (event, context, callback) {
 
                         sendTypingMessage(sender);
 
-                        var app = apiai("a9e2d8769f4b434eab5f61c037b237d2");
+                        var app = apiai(process.env.APIAI);
 
                         var request = app.textRequest(text);
 
