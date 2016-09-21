@@ -34,20 +34,20 @@ describe('Facebook Event Converter',function(){
 
         describe('convertEvent',function(){
                 it('returns correct object for given facebook event',function(){
-                    var event = facebookEventConverter.convertEvent(facebookEvent);
-                    console.log(JSON.stringify(event)); 
-                    console.log(JSON.stringify({UID: "1114852861896648",
-                        message: {
-                            payload: "hey",
-                            action: "text"
-                        }}));
-                    expect(event).to.equal({
-                        UID: "1114852861896648",
-                        message: {
-                            payload: "hey",
-                            action: "text"
-                        }
-                    });
+                        var event = facebookEventConverter.convertEvent(facebookEvent);
+                        console.log(JSON.stringify(event)); 
+                        console.log(JSON.stringify({UID: "1114852861896648",
+                                message: {
+                                        payload: "hey",
+                                        action: "text"
+                                }}));
+                        expect(event).to.equal({
+                                UID: "1114852861896648",
+                                message: {
+                                        payload: "hey",
+                                        action: "text"
+                                }
+                        });
                 });
         });
 
