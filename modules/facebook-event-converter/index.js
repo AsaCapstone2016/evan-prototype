@@ -56,3 +56,15 @@ var facebookEventConverter = {
 }
 
 module.exports = facebookEventConverter;
+
+/*
+* {
+*   ASIN: asdfsadfds,
+*   recipientId: asdfsadf,
+*   options: {
+*
+*   }
+* }
+*
+ *
+* **/
