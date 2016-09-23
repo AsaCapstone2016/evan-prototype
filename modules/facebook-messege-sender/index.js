@@ -9,7 +9,7 @@ var options = {
   path: path,
   method: 'POST',
   headers: {'Content-Type': 'application/json'}
-}
+};
 
 var facebookMessageSender = {
 
@@ -26,10 +26,9 @@ var facebookMessageSender = {
         "text": message.text
       }
     };
-
     return callSendAPI(json);
   }
-}
+};
 
 function callSendAPI(messageData) {
 

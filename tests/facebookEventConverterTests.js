@@ -1,7 +1,7 @@
 /**
  * Created by evan on 9/20/16.
  */
-var facebookEventConverter = require('../modules/facebookEventConverter');
+var facebookEventConverter = require('../modules/facebook-event-converter/index');
 var expect = require('chai').expect;
 
 //This is a basic FB event

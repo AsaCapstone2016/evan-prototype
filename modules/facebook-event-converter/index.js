@@ -24,7 +24,6 @@ var facebookEventConverter = {
 
       //Messaging is an array of messaging objects so we need to make sure to hit all of them.
       entry.messaging.forEach(function(messaging){
-
         //If message is part of this object, we are processing simple text message
         if(messaging.message){
           messageObjects.push({

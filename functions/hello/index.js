@@ -2,6 +2,7 @@ var amazon = require('amazon-product-api');
 var https = require('https');
 var Q = require('q');
 var apiai = require('apiai');
+var facebookEventConverter = require('facebook-event-converter');
 
 var PAGE_TOKEN = process.env.FB_PAGE_TOKEN;
 
@@ -15,13 +16,16 @@ var options = {
 
 exports.handle = function (event, context, callback) {
 
+
+  console.log(JSON.stringify(facebookEventConverter.convertEvent(event)));
   console.log(JSON.stringify(event));
   var messagingEvents = event.entry[0].messaging;
   for (var i = 0; i < messagingEvents.length; i++) {
     var messagingEvent = messagingEvents[i];
 
     var sender = messagingEvent.sender.id;
-
+    if(event.entry.id == sender)
+      return;
     if (messagingEvent.message && messagingEvent.message.text) {
       var text = messagingEvent.message.text;
 
@@ -35,9 +39,7 @@ exports.handle = function (event, context, callback) {
 
         console.log('apiai response ' + JSON.stringify(response));
         if (response.result.parameters.q == null) {
-          sendTextMessage(sender, "sorry, didn't get that").then(function () {
-            callback(null, null);
-          });
+          sendTextMessage(sender, response.result.fulfillment.speech);
         }
         var keywords = response.result.parameters.q;
         console.log('apiai keywords ' + keywords);
@@ -53,10 +55,7 @@ exports.handle = function (event, context, callback) {
           keywords: keywords,
           responseGroup: 'ItemAttributes,Offers,Images'
         }).then(function (results) {
-          sendGenericTemplateMessage(sender, results).then(function () {
-            console.log('done');
-            callback(null, null);
-          });
+          sendGenericTemplateMessage(sender, results);
         });
 
       });
@@ -134,15 +133,12 @@ function sendTypingMessage(senderFbId) {
 
 function callSendAPI(messageData) {
 
-  var deferred = Q.defer();
-
   var callback = function (response) {
     var str = '';
     response.on('data', function (chunk) {
       str += chunk;
     });
     response.on('end', function () {
-      deferred.resolve(true);
     });
   };
   var req = https.request(options, callback);
@@ -152,6 +148,4 @@ function callSendAPI(messageData) {
 
   req.write(JSON.stringify(messageData));
   req.end();
-
-  return Q.promise;
 }

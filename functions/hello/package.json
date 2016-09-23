@@ -1,10 +1,15 @@
 {
   "name": "application-name",
   "version": "0.0.1",
+  "scripts":{
+    "update-modules" : "npm install ../../modules/facebook-event-converter && npm install ../../modules/facebook-messege-sender"
+  },
   "dependencies": {
     "amazon-product-api": "^0.4.1",
     "apiai": "^2.0.7",
     "q": "^1.4.1",
-    "request": "^2.74.0"
+    "request": "^2.74.0",
+    "facebook-event-converter": "file:../../modules/facebook-event-converter",
+    "facebook-message-sender": "file:../../modules/facebook-messege-sender"
   }
 }
