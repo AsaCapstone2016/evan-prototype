@@ -18,7 +18,6 @@ exports.handle = function (event, context, callback) {
 
 
     console.log(JSON.stringify(facebookEventConverter.convertEvent(event)));
-    console.log(JSON.stringify(event));
     var messagingEvents = event.entry[0].messaging;
 
     const client = new Wit({accessToken: process.env.WIT_TOKEN});
@@ -27,11 +26,6 @@ exports.handle = function (event, context, callback) {
         var messagingEvent = messagingEvents[i];
 
         var sender = messagingEvent.sender.id;
-        if (event.entry.id == sender)
-            return;
-
-
-
 
         if (messagingEvent.message && messagingEvent.message.text) {
             var text = messagingEvent.message.text;
