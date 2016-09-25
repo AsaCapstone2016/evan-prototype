@@ -3,6 +3,7 @@ var https = require('https');
 var Q = require('q');
 var facebookEventConverter = require('facebook-event-converter');
 var Wit = require('cse498capstonewit').Wit;
+var witCommunicator = require('wit-communicator');
 
 var PAGE_TOKEN = process.env.FB_PAGE_TOKEN;
 
@@ -31,6 +32,26 @@ exports.handle = function (event, context, callback) {
             var text = messagingEvent.message.text;
 
             sendTypingMessage(sender);
+            var sessionId = witCommunicator.findOrCreateSession();
+            var text = event.message.text;
+            var attachments = event.message.attachments;
+
+            console.log("text: " + text);
+
+            if (attachments) {
+                // We received an attachment
+                // Let's reply with an automatic message
+                fbMessage(sender, 'Sorry I can only process text messages for now.')
+                    .catch(console.error);
+            } else if (text) {
+                // We received a text message
+
+                console.log("before runActions");
+
+                witCommunicator.runActions(sessionId,text,sessions[sessionId].context);
+                // Updating the user's current session state
+                sessions[sessionId].context = context;
+            }
 
             client.message(text, {}).then(function (response) {
                 console.log('wit response ' + JSON.stringify(response));
@@ -59,27 +80,6 @@ exports.handle = function (event, context, callback) {
 
 };
 
-// This will contain all user sessions.
-// Each session has an entry:
-// sessionId -> {fbid: facebookUserId, context: sessionState}
-const sessions = {};
-
-const findOrCreateSession = function (fbid) {
-    var sessionId;
-    // Let's see if we already have a session for the user fbid
-    Object.keys(sessions).forEach(function (k) {
-        if (sessions[k].fbid === fbid) {
-            // Yep, got it!
-            sessionId = k;
-        }
-    });
-    if (!sessionId) {
-        // No session found for user fbid, let's create a new one
-        sessionId = new Date().toISOString();
-        sessions[sessionId] = {fbid: fbid, context: {}};
-    }
-    return sessionId;
-};
 
 function sendGenericTemplateMessage(senderFbId, resultsJson) {
 
