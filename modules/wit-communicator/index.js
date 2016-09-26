@@ -3,10 +3,12 @@
  */
 var Wit = require('cse498capstonewit').Wit;
 var log = require('cse498capstonewit').log;
+var facebookMessageSender = require('facebook-message-sender');
 
 // Our bot actions
 const actions = {
     send: function (sessionId, text) {
+        console.log('here-send');
         // Our bot has something to say!
         // Let's retrieve the Facebook user whose session belongs to
         const recipientId = sessions[sessionId].fbid;
@@ -14,7 +16,7 @@ const actions = {
             // Yay, we found our recipient!
             // Let's forward our bot response to her.
             // We return a promise to let our bot know when we're done sending
-            return fbMessage(recipientId, text)
+            return facebookMessageSender.sendTextMessage({recipient_id: recipientId, text: text})
                 .then(function () {
                 })
                 .catch(function (err) {
@@ -34,6 +36,7 @@ const actions = {
     // You should implement your custom actions here
     // See https://wit.ai/docs/quickstart
     search: function (context, entities) {
+        console.log('here-search');
         return new Promise(function (resolve, reject) {
             if ("search_query" in entities) {
                 console.log("here");
@@ -57,7 +60,7 @@ const wit = new Wit({
     logger: new log.Logger(log.INFO)
 });
 
-const sessions = {};
+var sessions = {};
 
 var witCommunicator = {
     findOrCreateSession: function (fbid) {
@@ -74,11 +77,12 @@ var witCommunicator = {
             sessionId = new Date().toISOString();
             sessions[sessionId] = {fbid: fbid, context: {}};
         }
+
         return sessionId;
     },
 
-    runActions: function (sessionId, text, context) {
-        wit.runActions(
+    runActions: function (sessionId, text) {
+        return wit.runActions(
             sessionId, // the user's current session
             text, // the user's message
             sessions[sessionId].context // the user's current session state

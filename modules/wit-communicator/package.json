@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cse498capstonewit": "^1.0.0-beta"
+    "cse498capstonewit": "^1.0.0-beta",
+    "facebook-message-sender": "file:../../modules/facebook-message-sender"
   }
 }

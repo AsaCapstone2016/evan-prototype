@@ -17,50 +17,44 @@ var options = {
 
 exports.handle = function (event, context, callback) {
 
-    console.log(JSON.stringify(facebookEventConverter.convertEvent(event)));
-    var messagingEvents = event.entry[0].messaging;
-
-    const client = new Wit({accessToken: process.env.WIT_TOKEN});
-
-    for (var i = 0; i < messagingEvents.length; i++) {
-        var messagingEvent = messagingEvents[i];
-
-        var sender = messagingEvent.sender.id;
-
-        if (messagingEvent.message && messagingEvent.message.text) {
-
+    var messageObjects = facebookEventConverter.convertEvent(event);
+    messageObjects.forEach(function (messageObject) {
+        var sender = messageObject.UID;
+        if (messageObject.message.action == 'text') {
             facebookMessageSender.sendTypingMessage(sender); // Let the user know we are thinking!
 
             //var sessionId = witCommunicator.findOrCreateSession();
-            var text = messagingEvent.message.text;
-            var attachments = messagingEvent.message.attachments;
+            var text = messageObject.message.payload;
 
-            client.message(text, {}).then(function (response) {
-                console.log('wit response ' + JSON.stringify(response));
-                if (response.entities.intent[0].value != "search") {
-                    return facebookMessageSender.sendTextMessage({
-                        recipient_id: sender,
-                        text: response.entities.search_query[0].value
-                    });
-                }
-                else {
-                    var aws = amazon.createClient({
-                        awsId: process.env.AWS_ID,
-                        awsSecret: process.env.AWS_SECRET,
-                        awsTag: "evanm-20"
-                    });
-
-                    aws.itemSearch({
-                        searchIndex: 'All',
-                        keywords: response.entities.search_query[0].value,
-                        responseGroup: 'ItemAttributes,Offers,Images'
-                    }).then(function (results) {
-                        facebookMessageSender.sendGenericTemplateMessage(sender, results);
-                    });
-                }
+            var session = witCommunicator.findOrCreateSession(sender);
+            witCommunicator.runActions(session, text).then(function(){
+                console.log('after runActions');
             });
-
+            //client.message(text, {}).then(function (response) {
+            //    console.log('wit response ' + JSON.stringify(response));
+            //    if (response.entities.intent[0].value != "search") {
+            //        return facebookMessageSender.sendTextMessage({
+            //            recipient_id: sender,
+            //            text: response.entities.search_query[0].value
+            //        });
+            //    }
+            //    else {
+            //        var aws = amazon.createClient({
+            //            awsId: process.env.AWS_ID,
+            //            awsSecret: process.env.AWS_SECRET,
+            //            awsTag: "evanm-20"
+            //        });
+            //
+            //        aws.itemSearch({
+            //            searchIndex: 'All',
+            //            keywords: response.entities.search_query[0].value,
+            //            responseGroup: 'ItemAttributes,Offers,Images'
+            //        }).then(function (results) {
+            //            facebookMessageSender.sendGenericTemplateMessage(sender, results);
+            //        });
+            //    }
+            //});
         }
-    }
+    });
 
 };

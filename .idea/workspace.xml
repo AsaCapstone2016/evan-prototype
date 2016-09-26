@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="54bd97c9-122b-464c-82e8-01571616ed93" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/facebookMessageSenderTests.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tests/facebookMessegeSender.js" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/modules/facebook-messege-sender/index.js" afterPath="$PROJECT_DIR$/modules/facebook-message-sender/index.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/modules/facebook-messege-sender/package.json" afterPath="$PROJECT_DIR$/modules/facebook-message-sender/package.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/functions/hello/index.js" afterPath="$PROJECT_DIR$/functions/hello/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/functions/hello/package.json" afterPath="$PROJECT_DIR$/functions/hello/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/facebookEventConverterTests.js" afterPath="$PROJECT_DIR$/tests/facebookEventConverterTests.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/wit-communicator/index.js" afterPath="$PROJECT_DIR$/modules/wit-communicator/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/wit-communicator/package.json" afterPath="$PROJECT_DIR$/modules/wit-communicator/package.json" />
     </list>
     <ignored path="test1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,11 +29,21 @@
       <content type="file-editors">
         <state>
           <leaf>
+            <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/modules/facebook-event-converter/index.js">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state vertical-scroll-proportion="0.0">
+                    <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
             <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/modules/facebook-message-sender/index.js">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="0.45016798">
-                    <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+                  <state vertical-scroll-proportion="-0.49056605">
+                    <caret line="21" column="6" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
                     <folding />
                   </state>
                 </provider>
@@ -54,11 +60,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/functions/hello/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7081081">
-              <caret line="58" column="48" selection-start-line="58" selection-start-column="48" selection-end-line="58" selection-end-column="48" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="29" column="35" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -68,7 +74,17 @@
         <entry file="file://$PROJECT_DIR$/functions/hello/node_modules/facebook-message-sender/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="34" column="30" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="30" />
+              <caret line="32" column="6" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/wit-communicator/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-8.0">
+              <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -84,11 +100,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/wit-communicator/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="48" column="36" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.48918918">
+              <caret line="94" column="33" selection-start-line="94" selection-start-column="33" selection-end-line="94" selection-end-column="33" />
               <folding>
                 <element signature="e#0#38#0" expanded="false" />
               </folding>
@@ -99,8 +115,8 @@
       <file leaf-file-name="function.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/functions/hello/function.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.0">
-              <caret line="6" column="36" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="36" />
+            <state vertical-scroll-proportion="-6.0">
+              <caret line="9" column="14" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -109,8 +125,8 @@
       <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/functions/hello/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.3333335">
-              <caret line="11" column="51" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
+            <state vertical-scroll-proportion="-6.6666665">
+              <caret line="10" column="78" selection-start-line="10" selection-start-column="78" selection-end-line="11" selection-end-column="76" />
               <folding />
             </state>
           </provider>
@@ -134,16 +150,6 @@
               <folding>
                 <element signature="e#0#38#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mocha.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mocha.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -187,8 +193,6 @@
         <option value="$PROJECT_DIR$/functions/hello/node_modules/facebook-event-converter/index.js" />
         <option value="$PROJECT_DIR$/modules/amazon-client/index.js" />
         <option value="$PROJECT_DIR$/modules/facebook-event-converter/index.js" />
-        <option value="$PROJECT_DIR$/modules/wit-communicator/index.js" />
-        <option value="$PROJECT_DIR$/modules/wit-communicator/package.json" />
         <option value="$PROJECT_DIR$/tests/facebookEventConverterTests.js" />
         <option value="$PROJECT_DIR$/tests/facebookMessegeSender.js" />
         <option value="$PROJECT_DIR$/tests/facebookMessageSenderTests.js" />
@@ -196,8 +200,10 @@
         <option value="$PROJECT_DIR$/modules/facebook-messege-sender/package.json" />
         <option value="$PROJECT_DIR$/functions/hello/package.json" />
         <option value="$PROJECT_DIR$/functions/hello/function.json" />
-        <option value="$PROJECT_DIR$/functions/hello/index.js" />
         <option value="$PROJECT_DIR$/modules/facebook-message-sender/index.js" />
+        <option value="$PROJECT_DIR$/modules/wit-communicator/package.json" />
+        <option value="$PROJECT_DIR$/functions/hello/index.js" />
+        <option value="$PROJECT_DIR$/modules/wit-communicator/index.js" />
       </list>
     </option>
   </component>
@@ -431,7 +437,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295099" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1970803" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1970803" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -708,22 +714,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/facebook-event-converter/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="52" column="4" selection-start-line="52" selection-start-column="4" selection-end-line="52" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/wit-communicator/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/facebook-event-converter/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -774,22 +764,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/functions/hello/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.3333335">
-          <caret line="11" column="51" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/functions/hello/node_modules/facebook-message-sender/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="30" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/facebook-message-sender/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.6666667">
@@ -798,36 +772,68 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/wit-communicator/index.js">
+    <entry file="file://$PROJECT_DIR$/functions/hello/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="48" column="36" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#38#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="-6.6666665">
+          <caret line="10" column="78" selection-start-line="10" selection-start-column="78" selection-end-line="11" selection-end-column="76" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/functions/hello/function.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.0">
-          <caret line="6" column="36" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="36" />
+        <state vertical-scroll-proportion="-6.0">
+          <caret line="9" column="14" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/wit-communicator/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.0">
+          <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions/hello/node_modules/facebook-message-sender/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="6" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/functions/hello/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7081081">
-          <caret line="58" column="48" selection-start-line="58" selection-start-column="48" selection-end-line="58" selection-end-column="48" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="35" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/wit-communicator/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.48918918">
+          <caret line="94" column="33" selection-start-line="94" selection-start-column="33" selection-end-line="94" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#38#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/facebook-event-converter/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/facebook-message-sender/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45016798">
-          <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+        <state vertical-scroll-proportion="-0.49056605">
+          <caret line="21" column="6" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
           <folding />
         </state>
       </provider>
