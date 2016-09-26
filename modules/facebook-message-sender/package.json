@@ -1,5 +1,5 @@
 {
-  "name": "facebook-messege-sender",
+  "name": "facebook-message-sender",
   "version": "1.0.0",
   "description": "Module used to send facebook messages",
   "main": "index.js",

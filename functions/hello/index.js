@@ -1,9 +1,9 @@
 var amazon = require('amazon-product-api');
-var https = require('https');
-var Q = require('q');
 var facebookEventConverter = require('facebook-event-converter');
-var Wit = require('cse498capstonewit').Wit;
+var facebookMessageSender = require('facebook-message-sender');
 var witCommunicator = require('wit-communicator');
+
+var Wit = require('cse498capstonewit').Wit;
 
 var PAGE_TOKEN = process.env.FB_PAGE_TOKEN;
 
@@ -17,7 +17,6 @@ var options = {
 
 exports.handle = function (event, context, callback) {
 
-
     console.log(JSON.stringify(facebookEventConverter.convertEvent(event)));
     var messagingEvents = event.entry[0].messaging;
 
@@ -29,48 +28,34 @@ exports.handle = function (event, context, callback) {
         var sender = messagingEvent.sender.id;
 
         if (messagingEvent.message && messagingEvent.message.text) {
+
+            facebookMessageSender.sendTypingMessage(sender); // Let the user know we are thinking!
+
+            //var sessionId = witCommunicator.findOrCreateSession();
             var text = messagingEvent.message.text;
-
-            sendTypingMessage(sender);
-            var sessionId = witCommunicator.findOrCreateSession();
-            var text = event.message.text;
-            var attachments = event.message.attachments;
-
-            console.log("text: " + text);
-
-            if (attachments) {
-                // We received an attachment
-                // Let's reply with an automatic message
-                fbMessage(sender, 'Sorry I can only process text messages for now.')
-                    .catch(console.error);
-            } else if (text) {
-                // We received a text message
-
-                console.log("before runActions");
-
-                witCommunicator.runActions(sessionId,text,sessions[sessionId].context);
-                // Updating the user's current session state
-                sessions[sessionId].context = context;
-            }
+            var attachments = messagingEvent.message.attachments;
 
             client.message(text, {}).then(function (response) {
                 console.log('wit response ' + JSON.stringify(response));
                 if (response.entities.intent[0].value != "search") {
-                    sendTextMessage(sender, response.entities.search_query[0].value);
+                    return facebookMessageSender.sendTextMessage({
+                        recipient_id: sender,
+                        text: response.entities.search_query[0].value
+                    });
                 }
-                else{
-                    var client = amazon.createClient({
+                else {
+                    var aws = amazon.createClient({
                         awsId: process.env.AWS_ID,
                         awsSecret: process.env.AWS_SECRET,
                         awsTag: "evanm-20"
                     });
 
-                    return client.itemSearch({
+                    aws.itemSearch({
                         searchIndex: 'All',
                         keywords: response.entities.search_query[0].value,
                         responseGroup: 'ItemAttributes,Offers,Images'
                     }).then(function (results) {
-                        sendGenericTemplateMessage(sender, results);
+                        facebookMessageSender.sendGenericTemplateMessage(sender, results);
                     });
                 }
             });
@@ -79,83 +64,3 @@ exports.handle = function (event, context, callback) {
     }
 
 };
-
-
-function sendGenericTemplateMessage(senderFbId, resultsJson) {
-
-    var elements = [];
-
-    resultsJson.forEach(function (product) {
-        var element = {};
-        element.title = product && product.ItemAttributes[0] && product.ItemAttributes[0].Title[0];
-        element.item_url = product && product.DetailPageURL[0];
-        element.image_url = product && product.LargeImage && product.LargeImage[0] && product.LargeImage[0].URL[0];
-        element.subtitle = product && product.OfferSummary && product.OfferSummary[0] &&
-            product.OfferSummary[0].LowestNewPrice && product.OfferSummary[0].LowestNewPrice[0].FormattedPrice[0];
-        element.buttons = [
-            {
-                "type": "web_url",
-                "url": "https://cse.msu.edu",
-                "title": "Add to Cart"
-            }];
-
-        elements.push(element);
-    });
-
-    var json = {
-        recipient: {id: senderFbId},
-        message: {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "generic",
-                    "elements": elements
-                }
-            }
-        }
-    };
-
-    return callSendAPI(json);
-}
-
-function sendTextMessage(senderFbId, text) {
-    var json = {
-        recipient: {id: senderFbId},
-        message: {
-            "text": text
-        }
-    };
-
-    return callSendAPI(json);
-}
-
-function sendTypingMessage(senderFbId) {
-
-    var typingJson = {
-        "recipient": {
-            "id": senderFbId
-        },
-        "sender_action": "typing_on"
-    };
-
-    callSendAPI(typingJson);
-}
-
-function callSendAPI(messageData) {
-
-    var callback = function (response) {
-        var str = '';
-        response.on('data', function (chunk) {
-            str += chunk;
-        });
-        response.on('end', function () {
-        });
-    };
-    var req = https.request(options, callback);
-    req.on('error', function (e) {
-        console.log('problem with request: ' + e);
-    });
-
-    req.write(JSON.stringify(messageData));
-    req.end();
-}
